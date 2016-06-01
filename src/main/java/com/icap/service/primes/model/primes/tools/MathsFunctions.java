@@ -1,4 +1,4 @@
-package com.icap.service.primes.tools;
+package com.icap.service.primes.model.primes.tools;
 
 import java.math.BigInteger;
 

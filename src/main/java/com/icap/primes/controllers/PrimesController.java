@@ -1,7 +1,7 @@
-package com.icap.service.primes.controllers;
+package com.icap.primes.controllers;
 
 
-import com.icap.service.primes.model.PrimesModel;
+import com.icap.primes.model.PrimesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,14 +14,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class PrimesController {
 
     @Autowired
-    private PrimesModel primesModel;
+    private PrimesService primesService;
 
     @RequestMapping(value = "/v1/primes",
             method = GET,
             headers = {"content-type=text/html"})
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void findAllPrimes() throws InterruptedException {
-        primesModel.hasFactors();
+        primesService.isPrime(67);
     }
 
     //could show all the primes so far from the model, or use a URL callback to notify when the next prime has been found

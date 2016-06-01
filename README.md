@@ -21,7 +21,13 @@ However for a single machine with multi-core, each processor should be set to wo
 Once a factor is found, then the processor "broadcasts" this so that the other processors stop.
 Only if all processors work through their assigned primes, then the candidate is prime.
 
-I will focus on this approach here.
+The found prime is then added to the set of existing primes, the processors are re-seeded and triggered to find the next prime.
+
+The two computing candidates that naturally fit are MapReduce, and ForkJoin.
+
+I will focus on the ForkJoin approach here. As a side note, Java 8 streams can also be employed to solve this, as they
+use parallelism under the covers.
+
 
 Speedup
 =======
@@ -29,7 +35,6 @@ Rather than a brute force divisibility, a smarter technique could be used to det
 http://www.savory.de/maths1.htm
 
 This would act as a fast filter to weed out the vast majority of candidates that have low prime factors
-
 
 
 Limitations

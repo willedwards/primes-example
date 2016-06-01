@@ -1,9 +1,11 @@
-package com.icap.service.primes.model;
+package com.icap.primes.model;
 
+import com.google.common.primitives.Longs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.RecursiveTask;
 
 
@@ -19,6 +21,10 @@ public class ForkPrime extends RecursiveTask<Boolean> {
     }
 
     public static volatile boolean factorFound = false;
+
+    public ForkPrime(long candidateUnderTest, List<Long> longs) {
+        this(candidateUnderTest, Longs.toArray(longs));
+    }
 
     /**
      *

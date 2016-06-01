@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Running these tests individually gives the real sense of the parallelism
  */
-public class PrimesForkJoinServiceTest
+public class PrimeServiceTest
 {
 
     @Test

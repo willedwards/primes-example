@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
@@ -27,8 +29,8 @@ public class PrimesService implements IPrimeService {
     public PrimesService() {
     }
 
-    public List<Long> getSeedPrimes(){
-        return ImmutableList.copyOf(seedPrimes);
+    public Long[] getSeedPrimes(){
+        return Arrays.copyOf(seedPrimes, seedPrimes.length);//not great, Immutable would be better...
     }
 
     @Override
@@ -38,15 +40,14 @@ public class PrimesService implements IPrimeService {
         }
 
         ForkPrime.factorFound = false; //reset;
-        setMaxFactorToTry(candidateUnderTest);
+        //setMaxFactorToTry(candidateUnderTest);
 
         List<List<Long>> primeSeedsProcessorList = setupSeedsPerProcessor();
 
         ForkJoinPool pool = new ForkJoinPool(NUM_PROCESSORS);
-        for(int i = 0; i<NUM_PROCESSORS; i++) {
-            ForkPrime forkPrimes = new ForkPrime(candidateUnderTest, primeSeedsProcessorList.get(i));
-            pool.execute(forkPrimes);
-        }
+        ForkPrime forkPrimes = new ForkPrime(candidateUnderTest, seedPrimes);
+        pool.execute(forkPrimes);
+
 
         pool.awaitQuiescence(20, TimeUnit.SECONDS);
 
@@ -57,19 +58,7 @@ public class PrimesService implements IPrimeService {
 
     }
 
-    void setMaxFactorToTry(long candidateUnderTest) {
-        this.candidateUnderTest = candidateUnderTest;
-        maxFactorToTry = MathsFunctions.floorSqrt(candidateUnderTest);
-        if (maxFactorToTry % 2 == 0) {
-            maxFactorToTry--; //ensure it is odd.
-        }
 
-        if (maxFactorToTry % 5 == 0) {
-            maxFactorToTry -= 2; //5 is a waste of time to try, go for 3 at least
-        }
-
-        log.info("maxFactor to try = " + maxFactorToTry);
-    }
 
     private List<List<Long>> setupSeedsPerProcessor() {
 
@@ -106,5 +95,7 @@ public class PrimesService implements IPrimeService {
         return seedArrays;
 
     }
+
+
 
 }

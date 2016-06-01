@@ -48,15 +48,15 @@ public class PrimesServiceTest
 
     @Test
     public void testInitialSeedsFor2Arrays(){
-        List<Long> allSeedPrimes = model.getSeedPrimes();
+        Long[] allSeedPrimes = model.getSeedPrimes();
         List<Long> splitSeeds1 =   model.evenlyDistributeSeedPrimesAcrossProcessors(2).get(0);
         List<Long> splitSeeds2 =   model.evenlyDistributeSeedPrimesAcrossProcessors(2).get(1);
 //        List<Long> remainderSeeds =   model.evenlyDistributeSeedPrimesAcrossProcessors(2).get(2);
 
         int i=0;
-        while(i<allSeedPrimes.size()){
+        while(i<allSeedPrimes.length){
 
-            Long currentSeed = allSeedPrimes.get(i);
+            Long currentSeed = allSeedPrimes[i];
 
             if(splitSeeds1.contains(currentSeed)){
                 assertFalse(splitSeeds2.contains(currentSeed));
@@ -73,7 +73,7 @@ public class PrimesServiceTest
 //        log.info("remainder = " + asList(remainderSeeds));
     }
 
-    private String asList(final List<Long> longList) {
+    static String asList(final List<Long> longList) {
         StringBuilder sb = new StringBuilder();
         for(Long current : longList){
             sb.append(current + " ");

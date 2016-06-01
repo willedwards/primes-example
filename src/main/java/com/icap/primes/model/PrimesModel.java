@@ -1,45 +1,51 @@
 package com.icap.primes.model;
 
-import com.icap.primes.model.IPrimeService;
+import com.google.common.collect.ImmutableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by will on 01/06/2016.
- */
-public class PrimesModel {
+
+public class PrimesModel implements PrimesModelListener {
     private static final Logger log = LoggerFactory.getLogger(PrimesModel.class);
 
     private final IPrimeService primesService;
     private static final long STARTING_PRIME = 67L;
     private long currentPrimeCandidate = STARTING_PRIME;
-    private volatile boolean stop;
-    private List<Long> primesSoFar = new ArrayList<Long>();
+    private final List<Long> primesSoFar = new ArrayList<Long>();
 
     public PrimesModel(final IPrimeService primesService) {
         this.primesService = primesService;
-        //this.primesSoFar = primesService.getSeedPrimes();
+        this.primesService.addListener(this);
+        this.primesSoFar.addAll(Arrays.asList(primesService.getSeedPrimes()));
     }
 
+
+
     public void seekPrimes(){
-        while(!stop) {
+
            if(primesService.isPrime(currentPrimeCandidate)){
                primesSoFar.add(currentPrimeCandidate);
                log.info("found new prime : " + currentPrimeCandidate);
            }
-        }
-
-
     }
 
     public List<Long> getPrimesSoFar(){
-        return primesSoFar;
+        return ImmutableList.copyOf(primesSoFar);
     }
 
-    public void stop(){
-        this.stop = true;
+
+    @Override
+    public void onTrigger(Long candidateFinished,boolean isPrime) {
+        if(isPrime) {
+            primesSoFar.add(candidateFinished);
+            log.info("found new prime : " + candidateFinished);
+        }
+
+        currentPrimeCandidate += 2;
+        primesService.isPrime(currentPrimeCandidate);
     }
 }

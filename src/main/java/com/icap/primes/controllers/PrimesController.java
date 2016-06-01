@@ -1,27 +1,27 @@
 package com.icap.primes.controllers;
 
 
-import com.icap.primes.model.PrimesService;
+import com.icap.primes.model.PrimesModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 public class PrimesController {
 
     @Autowired
-    private PrimesService primesService;
+    private PrimesModel primesModel;
 
     @RequestMapping(value = "/v1/primes",
             method = GET,
             headers = {"content-type=text/html"})
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void findAllPrimes() throws InterruptedException {
-        primesService.isPrime(67);
+    public void findAllPrimes() {
+        primesModel.seekPrimes();
     }
 
     //could show all the primes so far from the model, or use a URL callback to notify when the next prime has been found

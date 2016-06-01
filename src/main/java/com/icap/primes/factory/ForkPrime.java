@@ -1,4 +1,4 @@
-package com.icap.primes.model;
+package com.icap.primes.factory;
 
 import com.icap.service.primes.model.primes.tools.MathsFunctions;
 import org.slf4j.Logger;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.RecursiveTask;
 
 
-public class ForkPrime extends RecursiveTask<Boolean> {
+class ForkPrime extends RecursiveTask<Boolean> {
     private static final Logger log = LoggerFactory.getLogger(ForkPrime.class);
     private final long primeCandidate;
     private final Long[] primeFactorsToTry;
@@ -18,7 +18,7 @@ public class ForkPrime extends RecursiveTask<Boolean> {
     public static volatile boolean factorFound = false;
 
     public ForkPrime(long primeCandidate, final Long[] seedsToFork) {
-        log.info("will try the following primes " + toString(seedsToFork));
+        log.debug("will try the following primes " + toString(seedsToFork));
         this.primeCandidate = primeCandidate;
         this.primeFactorsToTry = Arrays.copyOfRange(seedsToFork, 0, seedsToFork.length);
         setMaxFactorToTry(primeCandidate);
@@ -31,6 +31,7 @@ public class ForkPrime extends RecursiveTask<Boolean> {
      * @return true if the number is prime
      */
     protected Boolean compute() {
+
         List<Long[]> seeds = evenlySplitSeedPrimes(primeFactorsToTry);
         Long[] seedsToFork =  seeds.get(0);
         Long[] seedsForThis =  seeds.get(1);
@@ -77,7 +78,7 @@ public class ForkPrime extends RecursiveTask<Boolean> {
     }
 
     private Boolean computeDirectly(){
-        log.info("directly computing");
+        log.debug("directly computing");
         long startTime = System.currentTimeMillis();
         long delta;
         boolean isPrime = true;
@@ -85,11 +86,11 @@ public class ForkPrime extends RecursiveTask<Boolean> {
         while(i < primeFactorsToTry.length) {
 
             long currentPrime = primeFactorsToTry[i];
-            log.info("tried " + currentPrime);
+            log.debug("tried " + currentPrime);
 
             if (primeCandidate % currentPrime == 0){
                 isPrime = false;
-                log.info(currentPrime + " is a factor !");
+                log.debug(currentPrime + " is a factor !");
                 factorFound = true;
                 break;
             }
@@ -104,7 +105,7 @@ public class ForkPrime extends RecursiveTask<Boolean> {
         }
 
         delta = System.currentTimeMillis() - startTime;
-        log.info("took " + delta + " ms");
+        log.debug("took " + delta + " ms");
 
         return isPrime;
 
@@ -129,6 +130,6 @@ public class ForkPrime extends RecursiveTask<Boolean> {
             maxFactorToTry -= 2; //5 is a waste of time to try, go for 3 at least
         }
 
-        log.info("maxFactor to try = " + maxFactorToTry);
+        log.debug("maxFactor to try = " + maxFactorToTry);
     }
 }

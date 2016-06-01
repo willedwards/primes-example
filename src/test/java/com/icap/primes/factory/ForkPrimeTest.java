@@ -1,4 +1,4 @@
-package com.icap.primes.model;
+package com.icap.primes.factory;
 
 import org.junit.Test;
 import org.slf4j.Logger;

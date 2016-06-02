@@ -3,7 +3,6 @@ package com.icap.primes.model;
 import com.icap.primes.factory.PrimeServiceFactory;
 import com.icap.primes.factory.PrimeType;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.jayway.awaitility.Awaitility.*;
+import static com.jayway.awaitility.Awaitility.await;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class DefaultPrimesModelTest {
@@ -26,7 +25,7 @@ public class DefaultPrimesModelTest {
     }
 
     @Test
-    @Ignore //unfinished.
+    //@Ignore //unfinished.
     public void testSeekPrimes() throws Exception {
 
         model.seekPrimes();

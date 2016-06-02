@@ -19,6 +19,11 @@ class BigIntegerService implements IPrimeService {
     }
 
     @Override
+    public void addNewPrime(Long primes) {
+        //ignored
+    }
+
+    @Override
     public void addListener(PrimesModelListener listener) {
 
     }

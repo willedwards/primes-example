@@ -2,9 +2,7 @@ package com.icap.primes.factory;
 
 import com.icap.primes.model.IPrimeService;
 
-/**
- * Created by will on 01/06/2016.
- */
+
 public class PrimeServiceFactory {
 
     public static IPrimeService getService(PrimeType type){

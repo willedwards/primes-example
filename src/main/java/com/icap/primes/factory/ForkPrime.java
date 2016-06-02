@@ -14,6 +14,9 @@ class ForkPrime extends RecursiveTask<Boolean> {
     private final long primeCandidate;
     private final Long[] primeFactorsToTry;
     private int maxFactorToTry;
+
+
+
     private static volatile int currentParallelTasks = 1;
     public static volatile boolean factorFound = false;
 
@@ -118,6 +121,10 @@ class ForkPrime extends RecursiveTask<Boolean> {
             sb.append(l.toString() +  " ");
         }
         return sb.toString();
+    }
+
+    public int getMaxFactorToTry() {
+        return maxFactorToTry;
     }
 
     private void setMaxFactorToTry(long candidateUnderTest) {

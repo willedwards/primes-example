@@ -2,9 +2,7 @@ package com.icap.service.primes.model.primes.tools;
 
 import java.math.BigInteger;
 
-/**
- * Created by will on 25/05/2016.
- */
+
 public class MathsFunctions {
 
     public static final int floorSqrt(final long x) {

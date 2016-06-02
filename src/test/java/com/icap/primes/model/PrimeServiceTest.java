@@ -1,5 +1,6 @@
 package com.icap.primes.model;
 
+import com.icap.exceptions.PrimeServiceException;
 import com.icap.primes.factory.PrimeServiceFactory;
 import com.icap.primes.factory.PrimeType;
 import org.junit.Test;
@@ -53,6 +54,12 @@ public class PrimeServiceTest
     public void probablyPrime5003()  {
         IPrimeService service = PrimeServiceFactory.getService(PrimeType.PROBABLE);
         assertTrue(service.isPrime(5003));
+    }
+
+    @Test(expected = PrimeServiceException.class)
+    public void forkJoinPrime100001()  {
+        IPrimeService service = PrimeServiceFactory.getService(PrimeType.FORK_JOIN);
+        service.isPrime(1000001);
     }
 
 }

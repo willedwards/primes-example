@@ -14,15 +14,15 @@ import java.util.List;
 import static com.jayway.awaitility.Awaitility.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-public class PrimesModelTest {
+public class DefaultPrimesModelTest {
 
-    private static final Logger log = LoggerFactory.getLogger(PrimesModelTest.class);
-    PrimesModel model;
+    private static final Logger log = LoggerFactory.getLogger(DefaultPrimesModelTest.class);
+    DefaultPrimesModel model;
 
     @Before
     public void before(){
         IPrimeService service = PrimeServiceFactory.getService(PrimeType.FORK_JOIN);
-        model = new PrimesModel(service);
+        model = new DefaultPrimesModel(service);
     }
 
     @Test

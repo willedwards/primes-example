@@ -18,13 +18,11 @@ public class DefaultPrimesModel implements PrimesModel, PrimesModelListener {
     public DefaultPrimesModel(final IPrimeService primesService) {
         this.primesService = primesService;
         this.primesService.addListener(this);
-//        this.primesSoFar.addAll(Arrays.asList(primesService.getSeedPrimes()));
     }
 
     @Override
     public void seekPrimes(){
            if(primesService.isPrime(currentPrimeCandidate)) {
-//               primesSoFar.add(currentPrimeCandidate);
                log.info("found new prime : " + currentPrimeCandidate);
            }
     }

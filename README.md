@@ -28,6 +28,8 @@ The two computing candidates that naturally fit are MapReduce, and ForkJoin.
 I will focus on the ForkJoin approach here. As a side note, Java 8 streams can also be employed to solve this, as they
 use parallelism under the covers.
 
+I have also added a streams / lambda implementation which works, but is ripe for a bit more optimisation.
+
 
 Speedup
 =======

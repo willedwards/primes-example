@@ -20,12 +20,11 @@ public class DefaultPrimesModelTest {
 
     @Before
     public void before(){
-        IPrimeService service = PrimeServiceFactory.getService(PrimeType.FORK_JOIN);
+        IPrimeService service = PrimeServiceFactory.getService(PrimeType.FUNCTIONAL);
         model = new DefaultPrimesModel(service);
     }
 
     @Test
-    //@Ignore //unfinished.
     public void testSeekPrimes() throws Exception {
 
         model.seekPrimes();

@@ -21,8 +21,20 @@ public class PrimeServiceTest
     }
 
     @Test
+    public void test63Functional()  {
+        IPrimeService service = PrimeServiceFactory.getService(PrimeType.FUNCTIONAL);
+        assertFalse(service.isPrime(63));
+    }
+
+    @Test
     public void test67()  {
         IPrimeService service = PrimeServiceFactory.getService(PrimeType.FORK_JOIN);
+        assertTrue(service.isPrime(67));
+    }
+
+    @Test
+    public void test67Functional()  {
+        IPrimeService service = PrimeServiceFactory.getService(PrimeType.FUNCTIONAL);
         assertTrue(service.isPrime(67));
     }
 
@@ -47,6 +59,12 @@ public class PrimeServiceTest
     @Test
     public void forkJoin5003()  {
         IPrimeService service = PrimeServiceFactory.getService(PrimeType.FORK_JOIN);
+        assertTrue(service.isPrime(5003));
+    }
+
+    @Test
+    public void functional5003()  {
+        IPrimeService service = PrimeServiceFactory.getService(PrimeType.FUNCTIONAL);
         assertTrue(service.isPrime(5003));
     }
 

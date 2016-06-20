@@ -11,6 +11,8 @@ public class PrimeServiceFactory {
                 return new PrimesForkJoinService();
             case PROBABLE:
                 return new BigIntegerService();
+            case FUNCTIONAL:
+                return new PrimeFunctionService();
             default:
                 throw new RuntimeException("no such type" + type);
         }

@@ -13,7 +13,7 @@ public class Config {
 
     @Bean
     public IPrimeService getPrimeService(){
-        return PrimeServiceFactory.getService(PrimeType.PROBABLE);
+        return PrimeServiceFactory.getService(PrimeType.FUNCTIONAL);
     }
 
     @Bean
